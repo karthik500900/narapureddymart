@@ -36,7 +36,7 @@
             </form>
             <div class="links">
                 <a href="javascript:void(0)" onclick="showResetForm()">Forgot Password?</a> <br><br>
-                <span>New here? <a href="/store/register">Register</a></span>
+                <span>New here? <a href="register">Register</a></span>
             </div>
         </div>
 
