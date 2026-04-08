@@ -26,9 +26,9 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://localhost:3306/store" />
-    <property name="username" value="root" />
-    <property name="password" value="root" />
+    <property name="url" value="jdbc:mysql://mysql-1a1c296f-narapureddykarthi-86e3.k.aivencloud.com:14342/defaultdb?ssl-mode=REQUIRED" />
+    <property name="username" value="avnadmin" />
+    <property name="password" value="AVNS_V9qaVIxslwRjUut8qTP" />
 </bean>
 
 <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
