@@ -1,13 +1,15 @@
-# STEP 1: Use Maven to build the project
-FROM maven:3.6.3-jdk-8 AS build
-COPY src /home/app/src
-COPY pom.xml /home/app
-RUN mvn -f /home/app/pom.xml clean package
+# Use a very light "Run-only" version of Tomcat
+FROM tomcat:9.0-jre8-alpine
 
-# STEP 2: Use Tomcat to run the project
-FROM tomcat:9.0-jdk8-openjdk-slim
+# Remove default Tomcat apps
 RUN rm -rf /usr/local/tomcat/webapps/*
-# This line grabs the file created in Step 1 and renames it to ROOT.war
-COPY --from=build /home/app/target/*.war /usr/local/tomcat/webapps/ROOT.war
+
+# Copy the pre-built WAR file you just uploaded
+# NOTE: Using *.war will find whatever your file is named
+COPY *.war /usr/local/tomcat/webapps/ROOT.war
+
+# Strict memory limits so Render doesn't crash
+ENV JAVA_OPTS="-Xmx256m -Xms128m"
+
 EXPOSE 8080
-CMD ["catalina.sh", "run", "-Xmx300m", "-Xms200m"]
+CMD ["catalina.sh", "run"]
