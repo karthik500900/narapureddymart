@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.dao.UserDao;
+import com.ecommerce.model.Order;
 import com.ecommerce.model.User;
 import com.ecommerce.service.UserService;
 
@@ -28,6 +29,10 @@ public class UserServiceImpl implements UserService {
     public User findUserByEmail(String email) {
         // This tells the Service to call the DAO method we fixed earlier
         return userDao.findUserByEmail(email); 
+    }
+    @Override
+    public void saveOrder(Order order) {
+        userDao.saveOrder(order);
     }
     @Override
     public boolean updatePasswordByEmail(String email, String newPassword) {

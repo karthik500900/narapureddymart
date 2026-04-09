@@ -1,5 +1,6 @@
 package com.ecommerce.service;
 
+import com.ecommerce.model.Order;
 import com.ecommerce.model.User;
 
 
@@ -9,6 +10,7 @@ public interface UserService {
     void registerUser(User user); 
     User findUserByEmail(String email);
     User loginUser(String email, String password);
+    void saveOrder(Order order);
     
     boolean updatePasswordByEmail(String email, String newPassword);
 }

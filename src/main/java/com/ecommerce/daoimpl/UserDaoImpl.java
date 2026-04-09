@@ -1,6 +1,7 @@
 package com.ecommerce.daoimpl;
 
 import com.ecommerce.dao.UserDao;
+import com.ecommerce.model.Order;
 import com.ecommerce.model.User;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -51,6 +52,12 @@ public class UserDaoImpl implements UserDao {
             String sql = "UPDATE users SET password=? WHERE email=?";
             
             jdbcTemplate.update(sql, user.getPassword(), user.getEmail());
+        }
+        
+        @Override
+        public void saveOrder(Order order) {
+            String sql = "INSERT INTO orders (user_email, product_name, price) VALUES (?, ?, ?)";
+            jdbcTemplate.update(sql, order.getUserEmail(), order.getProductName(), order.getPrice());
         }
     
 } // Final closing bracket for the class

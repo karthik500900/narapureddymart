@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.ecommerce.model.Order;
 import com.ecommerce.model.User;
 import com.ecommerce.service.UserService;
 
@@ -80,6 +83,24 @@ public class LoginController {
             return "login";
         }
      // Add these to LoginController.java
+        
+        @PostMapping("/checkout")
+        @ResponseBody // This tells Java we are sending a simple text response, not a page
+        public String checkout(@RequestParam("productName") String productName, 
+                               @RequestParam("price") double price, 
+                               HttpSession session) {
+            
+            User user = (User) session.getAttribute("loggedInUser");
+            if (user == null) return "LOGIN_REQUIRED";
+
+            Order order = new Order();
+            order.setUserEmail(user.getEmail());
+            order.setProductName(productName);
+            order.setPrice(price);
+
+            userService.saveOrder(order); // You'll need to add this to UserService too!
+            return "SUCCESS";
+        }
 
         @RequestMapping(value = "/edit-profile", method = RequestMethod.GET)
         public String showProfile(HttpSession session, Model model) {
